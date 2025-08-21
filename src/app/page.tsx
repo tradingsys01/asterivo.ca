@@ -1,26 +1,38 @@
 import Link from "next/link";
+import OptimizedImage from "@/components/OptimizedImage";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
+      {/* Hero Background Image */}
+      <div className="absolute inset-0 z-0 opacity-20">
+        <OptimizedImage
+          src="/images/hero-team.jpg"
+          alt="Professional team collaboration"
+          width={1920}
+          height={1080}
+          priority={true}
+          className="w-full h-full"
+        />
+      </div>
       {/* Navigation */}
-      <nav className="container mx-auto px-6 py-4">
+      <nav className="container mx-auto px-6 py-4 relative z-20">
         <div className="flex justify-between items-center">
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Asterivo
           </div>
-          <div className="hidden md:flex space-x-8">
+          <div className="flex space-x-8">
             <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">Solutions</Link>
             <Link href="/case-studies" className="text-slate-600 hover:text-blue-600 transition-colors">Case Studies</Link>
             <a href="#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors">How It Works</a>
             <Link href="/pricing" className="text-slate-600 hover:text-blue-600 transition-colors">Pricing</Link>
             <Link href="/services" className="text-slate-600 hover:text-blue-600 transition-colors">About</Link>
-            <Link href="/get-started" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">Get Started</Link>
+            <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">Get Started</Link>
           </div>
         </div>
       </nav>
 
-      <main>
+      <main className="relative z-10">
         {/* Hero Section */}
         <section className="container mx-auto px-6 py-20">
           <div className="text-center max-w-4xl mx-auto">
@@ -105,37 +117,79 @@ export default function Home() {
               </h2>
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700">
-                <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div className="relative h-48">
+                  <OptimizedImage
+                    src="/images/service-automation.jpg"
+                    alt="AI Automation Services"
+                    width={400}
+                    height={300}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Quick Wins Package</h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">Start seeing results in 2 weeks</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Perfect for businesses ready to automate their first processes</p>
+                <div className="p-8">
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Quick Wins Package</h3>
+                  <p className="text-slate-600 dark:text-slate-300 mb-4">Start seeing results in 2 weeks</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Perfect for businesses ready to automate their first processes</p>
+                </div>
               </div>
 
-              <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700">
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
+              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div className="relative h-48">
+                  <OptimizedImage
+                    src="/images/service-analytics.jpg"
+                    alt="AI Analytics Services"
+                    width={400}
+                    height={300}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Workflow Transformation</h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">Automate your core operations</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Complete overhaul of your most time-consuming processes</p>
+                <div className="p-8">
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Workflow Transformation</h3>
+                  <p className="text-slate-600 dark:text-slate-300 mb-4">Automate your core operations</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Complete overhaul of your most time-consuming processes</p>
+                </div>
               </div>
 
-              <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700">
-                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
+              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div className="relative h-48">
+                  <OptimizedImage
+                    src="/images/service-training.jpg"
+                    alt="AI Training Services"
+                    width={400}
+                    height={300}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Team Training</h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">Get your team AI-confident</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Hands-on training so your team can maximize AI benefits</p>
+                <div className="p-8">
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Team Training</h3>
+                  <p className="text-slate-600 dark:text-slate-300 mb-4">Get your team AI-confident</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Hands-on training so your team can maximize AI benefits</p>
+                </div>
               </div>
             </div>
           </div>
@@ -153,28 +207,70 @@ export default function Home() {
               </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <Link href="/solutions#operations" className="block bg-white dark:bg-slate-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-sm text-blue-600 font-semibold mb-2">Local Marketing Agency • 12 employees</div>
-                <h4 className="font-semibold text-slate-900 dark:text-white mb-3">Automated client reporting process</h4>
-                <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">Reports that took 8 hours now generate automatically from multiple data sources</p>
-                <div className="text-2xl font-bold text-green-600">Saved 15 hours/week</div>
-                <div className="text-xs text-blue-600 mt-2">View full case study →</div>
+              <Link href="/solutions#operations" className="block bg-white dark:bg-slate-700 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="relative h-48">
+                  <OptimizedImage
+                    src="/images/case-study-office.jpg"
+                    alt="Marketing Agency Case Study"
+                    width={600}
+                    height={400}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <div className="text-sm font-semibold mb-1">Local Marketing Agency • 12 employees</div>
+                    <div className="text-2xl font-bold text-green-400">Saved 15 hours/week</div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-3">Automated client reporting process</h4>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">Reports that took 8 hours now generate automatically from multiple data sources</p>
+                  <div className="text-xs text-blue-600 mt-2">View full case study →</div>
+                </div>
               </Link>
               
-              <Link href="/solutions#hr-recruiting" className="block bg-white dark:bg-slate-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-sm text-blue-600 font-semibold mb-2">Law Firm • 25 employees</div>
-                <h4 className="font-semibold text-slate-900 dark:text-white mb-3">AI-powered document review</h4>
-                <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">Contract analysis that used to take days now completes in hours</p>
-                <div className="text-2xl font-bold text-green-600">75% faster processing</div>
-                <div className="text-xs text-blue-600 mt-2">View full case study →</div>
+              <Link href="/solutions#hr-recruiting" className="block bg-white dark:bg-slate-700 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="relative h-48">
+                  <OptimizedImage
+                    src="/images/case-study-meeting.jpg"
+                    alt="Law Firm Case Study"
+                    width={600}
+                    height={400}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <div className="text-sm font-semibold mb-1">Law Firm • 25 employees</div>
+                    <div className="text-2xl font-bold text-green-400">75% faster processing</div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-3">AI-powered document review</h4>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">Contract analysis that used to take days now completes in hours</p>
+                  <div className="text-xs text-blue-600 mt-2">View full case study →</div>
+                </div>
               </Link>
               
-              <Link href="/solutions#sales-customer" className="block bg-white dark:bg-slate-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-sm text-blue-600 font-semibold mb-2">E-commerce Store • 8 employees</div>
-                <h4 className="font-semibold text-slate-900 dark:text-white mb-3">Automated customer support</h4>
-                <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">AI handles 80% of support tickets, team focuses on complex issues</p>
-                <div className="text-2xl font-bold text-green-600">Response time cut by 90%</div>
-                <div className="text-xs text-blue-600 mt-2">View full case study →</div>
+              <Link href="/solutions#sales-customer" className="block bg-white dark:bg-slate-700 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="relative h-48">
+                  <OptimizedImage
+                    src="/images/case-study-success.jpg"
+                    alt="E-commerce Case Study"
+                    width={600}
+                    height={400}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <div className="text-sm font-semibold mb-1">E-commerce Store • 8 employees</div>
+                    <div className="text-2xl font-bold text-green-400">Response time cut by 90%</div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-3">Automated customer support</h4>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">AI handles 80% of support tickets, team focuses on complex issues</p>
+                  <div className="text-xs text-blue-600 mt-2">View full case study →</div>
+                </div>
               </Link>
             </div>
           </div>
