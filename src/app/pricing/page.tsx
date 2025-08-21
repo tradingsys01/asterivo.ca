@@ -21,7 +21,7 @@ export default function Pricing() {
           <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Asterivo
           </Link>
-          <div className="hidden md:flex space-x-8">
+          <div className="flex space-x-8">
             <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">Solutions</Link>
             <Link href="/case-studies" className="text-slate-600 hover:text-blue-600 transition-colors">Case Studies</Link>
             <Link href="/#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors">How It Works</Link>
