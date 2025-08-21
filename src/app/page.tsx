@@ -23,6 +23,7 @@ export default function Home() {
           </div>
           <div className="flex space-x-8">
             <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">Solutions</Link>
+            <Link href="/website-in-a-day" className="text-slate-600 hover:text-blue-600 transition-colors">Website in a Day</Link>
             <Link href="/case-studies" className="text-slate-600 hover:text-blue-600 transition-colors">Case Studies</Link>
             <a href="#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors">How It Works</a>
             <Link href="/pricing" className="text-slate-600 hover:text-blue-600 transition-colors">Pricing</Link>
@@ -116,7 +117,7 @@ export default function Home() {
                 How We Help
               </h2>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
               <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
                 <div className="relative h-48">
                   <OptimizedImage
@@ -189,6 +190,36 @@ export default function Home() {
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Team Training</h3>
                   <p className="text-slate-600 dark:text-slate-300 mb-4">Get your team AI-confident</p>
                   <p className="text-sm text-slate-500 dark:text-slate-400">Hands-on training so your team can maximize AI benefits</p>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div className="relative h-48">
+                  <OptimizedImage
+                    src="/images/hero-team.jpg"
+                    alt="Website in a Day Service"
+                    width={400}
+                    height={300}
+                    className="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 12v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Website in a Day</h3>
+                  <p className="text-slate-600 dark:text-slate-300 mb-4">Professional website live by tonight</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">AI-powered website built and launched in a single business day</p>
+                  <div className="mt-4">
+                    <Link href="/website-in-a-day" className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                      Starting at $997 →
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

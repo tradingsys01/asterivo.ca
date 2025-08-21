@@ -11,6 +11,7 @@ export default function WebsiteInADay() {
           </Link>
           <div className="flex space-x-8">
             <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">Solutions</Link>
+            <Link href="/website-in-a-day" className="text-blue-600 font-semibold">Website in a Day</Link>
             <Link href="/case-studies" className="text-slate-600 hover:text-blue-600 transition-colors">Case Studies</Link>
             <Link href="/#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors">How It Works</Link>
             <Link href="/pricing" className="text-slate-600 hover:text-blue-600 transition-colors">Pricing</Link>
