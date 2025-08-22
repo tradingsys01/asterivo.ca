@@ -399,7 +399,7 @@ Is there anything general about our services I can help explain while you're her
                     dangerouslySetInnerHTML={{
                       __html: message.text.replace(
                         /\[([^\]]+)\]\(([^)]+)\)/g,
-                        '<a href="$2" target="_blank" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 font-medium">$1</a>'
+                        '<a href="$2" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 font-medium">$1</a>'
                       )
                     }}
                   />
