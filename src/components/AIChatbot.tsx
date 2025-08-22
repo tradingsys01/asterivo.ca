@@ -88,7 +88,7 @@ export default function AIChatbot() {
       return `Absolutely! Our team would love to speak with you directly.
 
 🎯 **Connect with our experts:**
-• **Best option:** [Fill out our contact form here](/contact)
+• **Best option:** [Fill out our contact form here](./contact)
 • **Response time:** Within 2 business hours  
 • **What to expect:** Free consultation about your specific needs
 • **Who you'll speak with:** Our AI automation specialists
@@ -172,7 +172,7 @@ Most clients see ROI within 30 days. What processes are taking up most of your t
     if (lowerMessage.includes('contact') || lowerMessage.includes('get started') || lowerMessage.includes('call') || lowerMessage.includes('email') || lowerMessage.includes('consultation')) {
       return `Great! I'd love to help you get started. Here's the best way to connect:
 
-🎯 **Free Consultation** - [Fill out our contact form here](/contact)
+🎯 **Free Consultation** - [Fill out our contact form here](./contact)
 ⚡ **Quick Response** - We respond within 2 business hours
 💡 **Custom Solution** - We'll discuss your specific needs
 📈 **ROI Planning** - See exactly how we'll save you time
@@ -246,7 +246,7 @@ What specific comparison were you thinking about?`;
 While I can provide general information about our services, your specific situation sounds like it needs a custom approach. 
 
 🎯 **Let's connect you with our team:**
-• [Fill out our contact form here](/contact)
+• [Fill out our contact form here](./contact)
 • We'll respond within 2 business hours
 • Get a free consultation tailored to your needs
 • Discuss custom solutions for your specific situation
@@ -262,7 +262,7 @@ In the meantime, is there anything general about our Website in a Day or AI Auto
 • **AI Automation** ($497-$1,997/month) - Save 10+ hours per week
 
 **For detailed questions like yours:**
-🎯 **[Contact our team here](/contact)** - We respond within 2 business hours and can give you specific answers tailored to your situation.
+🎯 **[Contact our team here](./contact)** - We respond within 2 business hours and can give you specific answers tailored to your situation.
 
 Is there anything general about our services I can help explain while you're here?`;
   };
