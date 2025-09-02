@@ -40,11 +40,14 @@ npm run build
 
 # Step 2: Create deployment archive
 echo_info "Creating deployment archive..."
+rm -f asterivo-deploy.tar.gz
 tar --exclude='node_modules' \
     --exclude='.git' \
     --exclude='.next/cache' \
-    --exclude='deploy.sh' \
+    --exclude='deploy*.sh' \
     --exclude='.env.local' \
+    --exclude='test-*.js' \
+    --exclude='asterivo-deploy.tar.gz' \
     -czf asterivo-deploy.tar.gz .
 
 echo_success "Archive created: asterivo-deploy.tar.gz"
@@ -106,7 +109,8 @@ ssh $SERVER << 'ENDSSH'
     cat > .env.production << EOF
 NODE_ENV=production
 EMAIL_USER=asterivo.ca@gmail.com
-EMAIL_PASSWORD=pkxj ddot sttu rywd
+EMAIL_PASSWORD=\${EMAIL_PASSWORD}
+ANTHROPIC_API_KEY=\${ANTHROPIC_API_KEY}
 EOF
 
     # Set correct permissions

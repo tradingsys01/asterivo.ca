@@ -9,9 +9,8 @@ const nextConfig: NextConfig = {
     // Disable TypeScript errors during build for production deployment
     ignoreBuildErrors: true,
   },
-  // Export as static files for Apache deployment
-  output: 'export',
-  trailingSlash: true,
+  // Server deployment mode for full functionality including API routes
+  trailingSlash: false,
   images: {
     unoptimized: true,
   },
