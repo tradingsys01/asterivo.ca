@@ -53,7 +53,7 @@ export default function AIChatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hi! I'm Asterivo's intelligent AI assistant. I can understand your questions and provide personalized help with our services. What would you like to know about AI automation or our Website in a Day offering?",
+      text: "Hi! I'm Asterivo's AI assistant, powered by Claude. I can have natural conversations and provide detailed help about our services. What would you like to know about AI automation or our Website in a Day offering?",
       isBot: true,
       timestamp: new Date()
     }
@@ -71,10 +71,31 @@ export default function AIChatbot() {
     scrollToBottom();
   }, [messages]);
 
-  // Intelligent client-side AI response (works on static deployment)
+  // Real AI response using Claude API
   const getAIResponse = async (userMessage: string, conversationHistory: Message[]): Promise<string> => {
-    // For production, use intelligent client-side logic
-    return getIntelligentClientResponse(userMessage, conversationHistory);
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          conversationHistory: conversationHistory
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.response || getIntelligentClientResponse(userMessage, conversationHistory);
+    } catch (error) {
+      console.error('API call failed:', error);
+      // Fallback to client-side logic when API fails
+      return getIntelligentClientResponse(userMessage, conversationHistory);
+    }
   };
 
   // Intelligent client-side response function (mirrors server logic)
@@ -300,15 +321,18 @@ Is there anything general about our services I can help explain while you're her
     // Get AI response
     const responseText = await getAIResponse(textToSend, messages);
     
-    const botResponse: Message = {
-      id: (Date.now() + 1).toString(),
-      text: responseText,
-      isBot: true,
-      timestamp: new Date()
-    };
+    // Add a small delay to make it feel more natural
+    setTimeout(() => {
+      const botResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: responseText,
+        isBot: true,
+        timestamp: new Date()
+      };
 
-    setMessages(prev => [...prev, botResponse]);
-    setIsTyping(false);
+      setMessages(prev => [...prev, botResponse]);
+      setIsTyping(false);
+    }, 500);
   };
 
   const quickActions = [
@@ -368,7 +392,7 @@ Is there anything general about our services I can help explain while you're her
               </div>
               <div>
                 <h3 className="font-semibold">AI Assistant</h3>
-                <p className="text-xs opacity-90">🤖 Powered by AI • Always learning</p>
+                <p className="text-xs opacity-90">🤖 Powered by Claude • Real AI conversations</p>
               </div>
             </div>
             <button
@@ -397,10 +421,27 @@ Is there anything general about our services I can help explain while you're her
                 >
                   <div 
                     dangerouslySetInnerHTML={{
-                      __html: message.text.replace(
-                        /\[([^\]]+)\]\(([^)]+)\)/g,
-                        '<a href="#" onclick="window.location.href=\'/contact\'; return false;" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 font-medium">$1</a>'
-                      )
+                      __html: message.text
+                        // Convert asterivo.ca/contact/ to clickable link
+                        .replace(
+                          /asterivo\.ca\/contact\//g,
+                          '<a href="/contact/" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 font-medium" onclick="window.open(\'/contact/\', \'_blank\'); return false;">asterivo.ca/contact/</a>'
+                        )
+                        // Convert /services to clickable link
+                        .replace(
+                          /\/services/g,
+                          '<a href="/services/" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 font-medium" onclick="window.open(\'/services/\', \'_blank\'); return false;">/services</a>'
+                        )
+                        // Convert /pricing to clickable link
+                        .replace(
+                          /\/pricing/g,
+                          '<a href="/pricing/" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 font-medium" onclick="window.open(\'/pricing/\', \'_blank\'); return false;">/pricing</a>'
+                        )
+                        // Convert markdown links [text](url)
+                        .replace(
+                          /\[([^\]]+)\]\(([^)]+)\)/g,
+                          '<a href="$2" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 font-medium" onclick="window.open(\'$2\', \'_blank\'); return false;">$1</a>'
+                        )
                     }}
                   />
                 </div>

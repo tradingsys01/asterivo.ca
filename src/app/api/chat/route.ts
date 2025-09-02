@@ -1,7 +1,55 @@
+import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
 
-// Free AI implementation using Hugging Face Inference API (completely free)
-const HF_API_URL = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium';
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+// Asterivo company context for AI assistant
+const ASTERIVO_CONTEXT = `You are Asterivo's AI assistant. Asterivo helps small businesses automate repetitive tasks and build professional websites quickly.
+
+SERVICES & PRICING:
+Website in a Day:
+- Launch Day ($997): 3 pages + AI chatbot, built in 8 hours
+- Business Day ($2,497): 5 pages + AI + automation features  
+- AI-Powered Day ($4,997): 10 pages + advanced AI integration
+
+AI Automation (Monthly):
+- Starter ($497/month): Basic workflow automation
+- Growth ($997/month): Advanced automation + integrations
+- Scale ($1,997/month): Enterprise-level automation
+
+KEY BENEFITS:
+- Save 10+ hours per week through automation
+- ROI typically seen within 30 days
+- Same-day website delivery (8 hours)
+- No enterprise price tags - built for small business
+
+COMMON AUTOMATIONS:
+- Lead response and qualification
+- Email marketing sequences  
+- Data entry and reporting
+- Customer support responses
+- Social media posting
+- Invoice and quote generation
+
+CONTACT: When users ask for consultations, detailed proposals, or want to schedule calls, ALWAYS direct them to the contact form at "asterivo.ca/contact/". Response time within 2 business hours.
+
+WEBSITE LINKS: You can reference these clickable pages:
+- asterivo.ca/contact/ (contact form)
+- /services (services overview)  
+- /pricing (pricing details)
+- /website-in-a-day (Website in a Day info)
+
+IMPORTANT INSTRUCTIONS:
+- Be helpful, conversational, and focus on how Asterivo can solve their specific business problems
+- Ask follow-up questions to understand their needs  
+- Keep responses concise but informative
+- When users want consultations, proposals, or detailed plans, direct them to asterivo.ca/contact/ immediately
+- ALWAYS use "asterivo.ca/contact/" as the contact form URL (with trailing slash)
+- You can mention /services, /pricing, or other pages when relevant - they will become clickable links
+- Always mention "2 business hours response time" when directing to contact form
+- Don't get too deep into technical details - save that for the consultation`;
 
 interface ChatMessage {
   id: string;
@@ -10,27 +58,72 @@ interface ChatMessage {
   timestamp: Date;
 }
 
-interface ChatRequest {
-  message: string;
-  context: string;
-  history: ChatMessage[];
-}
-
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
+  let requestData;
+  
   try {
-    const { message, context, history }: ChatRequest = await request.json();
+    // Parse request body once
+    requestData = await req.json();
+    const { message, conversationHistory } = requestData;
 
-    // Simple intelligent response using pattern matching with context
-    const response = generateIntelligentResponse(message, context, history);
-    
-    return NextResponse.json({ response });
-    
+    if (!message) {
+      return NextResponse.json(
+        { error: 'Message is required' },
+        { status: 400 }
+      );
+    }
+
+    // Check if API key is configured and valid
+    if (!process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY === 'your_claude_api_key_here') {
+      console.warn('Claude API key not configured, using fallback responses');
+      const response = generateIntelligentResponse(message, [], conversationHistory || []);
+      return NextResponse.json({ response });
+    }
+
+    // Build conversation context from history
+    let conversationContext = '';
+    if (conversationHistory && conversationHistory.length > 0) {
+      conversationContext = conversationHistory
+        .slice(-10) // Keep last 10 messages for context
+        .map((msg: any) => `${msg.isBot ? 'Assistant' : 'User'}: ${msg.text}`)
+        .join('\n');
+    }
+
+    // Create the full prompt
+    const fullPrompt = `${ASTERIVO_CONTEXT}
+
+${conversationContext ? `Recent conversation:\n${conversationContext}\n` : ''}
+
+Current user message: ${message}
+
+Please respond as Asterivo's AI assistant:`;
+
+    const response = await anthropic.messages.create({
+      model: 'claude-3-haiku-20240307',
+      max_tokens: 500,
+      messages: [
+        {
+          role: 'user',
+          content: fullPrompt
+        }
+      ]
+    });
+
+    const responseText = response.content[0]?.type === 'text' 
+      ? response.content[0].text 
+      : 'I apologize, but I encountered an issue processing your request.';
+
+    return NextResponse.json({ response: responseText });
+
   } catch (error) {
-    console.error('Chat API error:', error);
-    return NextResponse.json(
-      { error: 'Failed to generate response' },
-      { status: 500 }
-    );
+    console.error('Claude API error:', error);
+    
+    // Fallback to intelligent pattern matching when API fails
+    const message = requestData?.message || 'Hello';
+    const conversationHistory = requestData?.conversationHistory || [];
+    const fallbackResponse = generateIntelligentResponse(message, [], conversationHistory);
+    
+    return NextResponse.json({ response: fallbackResponse });
   }
 }
 
