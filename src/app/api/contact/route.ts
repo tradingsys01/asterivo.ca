@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER || 'asterivo.ca@gmail.com',
+        user: process.env.EMAIL_USER || 'support@asterivo.ca',
         pass: process.env.EMAIL_PASSWORD || '' // This needs to be set as an environment variable
       }
     });
@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
 
     // Send notification email to Asterivo
     await transporter.sendMail({
-      from: `"Asterivo Website" <${process.env.EMAIL_USER || 'asterivo.ca@gmail.com'}>`,
+      from: `"Asterivo Website" <support@asterivo.ca>`,
       to: 'asterivo.ca@gmail.com',
       subject: `🚀 New ${context.type} Lead: ${firstName} ${lastName} from ${company}`,
       html: notificationEmailContent
@@ -181,7 +181,7 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email to the lead
     await transporter.sendMail({
-      from: `"Asterivo" <${process.env.EMAIL_USER || 'asterivo.ca@gmail.com'}>`,
+      from: `"Asterivo" <support@asterivo.ca>`,
       to: email,
       subject: `Thanks for your interest, ${firstName}! We'll be in touch soon.`,
       html: confirmationEmailContent
