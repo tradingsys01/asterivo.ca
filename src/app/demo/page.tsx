@@ -1,5 +1,8 @@
 import Link from "next/link";
-import InvoiceDemo from "@/components/InvoiceDemo";
+import DemoWrapper from "@/components/DemoWrapper";
+
+// Force this page to be dynamic (not statically generated)
+export const dynamic = 'force-dynamic';
 
 export default function DemoPage() {
   return (
@@ -11,12 +14,13 @@ export default function DemoPage() {
             Asterivo
           </Link>
           <div className="flex space-x-8">
-            <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">Solutions</Link>
+            <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">AI Automation</Link>
+            <Link href="/pricing" className="text-slate-600 hover:text-blue-600 transition-colors">Pricing</Link>
             <Link href="/case-studies" className="text-slate-600 hover:text-blue-600 transition-colors">Case Studies</Link>
             <Link href="/#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors">How It Works</Link>
-            <Link href="/#pricing" className="text-slate-600 hover:text-blue-600 transition-colors">Pricing</Link>
+            <Link href="/website-in-a-day" className="text-slate-600 hover:text-blue-600 transition-colors">Website in a Day</Link>
             <Link href="/services" className="text-slate-600 hover:text-blue-600 transition-colors">About</Link>
-            <Link href="/#get-started" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">Get Started</Link>
+            <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">Free Assessment</Link>
           </div>
         </div>
       </nav>
@@ -54,7 +58,7 @@ export default function DemoPage() {
         </div>
 
         {/* Invoice Demo */}
-        <InvoiceDemo />
+        <DemoWrapper />
 
         {/* How It Works */}
         <section className="mt-16 bg-slate-100 dark:bg-slate-800 py-12 -mx-6 px-6">
