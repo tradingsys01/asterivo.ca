@@ -22,13 +22,13 @@ export default function Pricing() {
             Asterivo
           </Link>
           <div className="flex space-x-8">
-            <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">Solutions</Link>
-            <Link href="/website-in-a-day" className="text-slate-600 hover:text-blue-600 transition-colors">Website in a Day</Link>
+            <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">AI Automation</Link>
+            <Link href="/pricing" className="text-blue-600 font-semibold">Pricing</Link>
             <Link href="/case-studies" className="text-slate-600 hover:text-blue-600 transition-colors">Case Studies</Link>
             <Link href="/#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors">How It Works</Link>
-            <Link href="/pricing" className="text-blue-600 font-semibold">Pricing</Link>
+            <Link href="/website-in-a-day" className="text-slate-600 hover:text-blue-600 transition-colors">Website in a Day</Link>
             <Link href="/services" className="text-slate-600 hover:text-blue-600 transition-colors">About</Link>
-            <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">Get Started</Link>
+            <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">Free Assessment</Link>
           </div>
         </div>
       </nav>
@@ -66,35 +66,6 @@ export default function Pricing() {
           </div>
         </section>
 
-        {/* Website in a Day Service */}
-        <section className="container mx-auto px-6 pb-16">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white text-center mb-8">
-              <h2 className="text-3xl font-bold mb-4">Need a Website Fast? 🚀</h2>
-              <p className="text-xl mb-6 opacity-90">Professional website with AI features built and launched in a single day</p>
-              <div className="grid md:grid-cols-3 gap-6 mb-6">
-                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold mb-2">Launch Day</div>
-                  <div className="text-3xl font-bold">$997</div>
-                  <div className="text-sm opacity-90">3 pages + AI chatbot</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold mb-2">Business Day</div>
-                  <div className="text-3xl font-bold">$2,497</div>
-                  <div className="text-sm opacity-90">5 pages + AI + automation</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold mb-2">AI-Powered Day</div>
-                  <div className="text-3xl font-bold">$4,997</div>
-                  <div className="text-sm opacity-90">10 pages + advanced AI</div>
-                </div>
-              </div>
-              <Link href="/website-in-a-day" className="inline-block bg-white text-purple-600 hover:bg-slate-100 px-8 py-3 rounded-lg font-semibold transition-colors">
-                Learn More About Website in a Day →
-              </Link>
-            </div>
-          </div>
-        </section>
 
         {/* AI Automation Pricing Tiers */}
         <section className="container mx-auto px-6 pb-20">
@@ -389,6 +360,36 @@ export default function Pricing() {
                   <p className="text-slate-600 dark:text-slate-300">Absolutely. All plans include comprehensive team training. Higher-tier plans get more frequent training sessions and ongoing support.</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Website in a Day Service */}
+        <section className="container mx-auto px-6 py-16">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">Need a Website Fast? 🚀</h2>
+              <p className="text-xl mb-6 opacity-90">Professional website with AI features built and launched in a single day</p>
+              <div className="grid md:grid-cols-3 gap-6 mb-6">
+                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                  <div className="text-2xl font-bold mb-2">Launch Day</div>
+                  <div className="text-3xl font-bold">$997</div>
+                  <div className="text-sm opacity-90">3 pages + AI chatbot</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                  <div className="text-2xl font-bold mb-2">Business Day</div>
+                  <div className="text-3xl font-bold">$2,497</div>
+                  <div className="text-sm opacity-90">5 pages + AI + automation</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                  <div className="text-2xl font-bold mb-2">AI-Powered Day</div>
+                  <div className="text-3xl font-bold">$4,997</div>
+                  <div className="text-sm opacity-90">10 pages + advanced AI</div>
+                </div>
+              </div>
+              <Link href="/website-in-a-day" className="inline-block bg-white text-purple-600 hover:bg-slate-100 px-8 py-3 rounded-lg font-semibold transition-colors">
+                Learn More About Website in a Day →
+              </Link>
             </div>
           </div>
         </section>

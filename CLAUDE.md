@@ -1,0 +1,2 @@
+- remote deployment server is 167.86.77.166
+- keep this setup and use for later deployments for remote server

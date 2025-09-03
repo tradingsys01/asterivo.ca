@@ -7,13 +7,14 @@ interface ContactForm {
   email: string;
   company: string;
   phone?: string;
+  message?: string;
   source: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body: ContactForm = await request.json();
-    const { firstName, lastName, email, company, phone, source } = body;
+    const { firstName, lastName, email, company, phone, message, source } = body;
 
     // Validate required fields
     if (!firstName || !lastName || !email || !company) {
@@ -92,6 +93,7 @@ export async function POST(request: NextRequest) {
             <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
             <p><strong>Company:</strong> ${company}</p>
             ${phone ? `<p><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></p>` : ''}
+            ${message ? `<p><strong>Message:</strong><br>${message.replace(/\n/g, '<br>')}</p>` : ''}
           </div>
 
           <div class="details">

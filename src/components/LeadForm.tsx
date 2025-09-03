@@ -21,6 +21,7 @@ export default function LeadForm({
     email: '',
     company: '',
     phone: '',
+    message: '',
     source: source
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -214,6 +215,21 @@ export default function LeadForm({
               onChange={handleChange}
               className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white"
               placeholder="(555) 123-4567"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              Tell us about your needs (Optional)
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={4}
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white resize-vertical"
+              placeholder="Describe your current challenges, goals, or specific questions about AI automation..."
             />
           </div>
 
