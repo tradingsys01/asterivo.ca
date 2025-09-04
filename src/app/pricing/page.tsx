@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import Navigation from "@/components/Navigation";
 
 export const metadata: Metadata = {
   title: "AI Automation Pricing - Transparent, SMB-Friendly Plans | Asterivo",
@@ -15,23 +16,7 @@ export const metadata: Metadata = {
 export default function Pricing() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-      {/* Navigation */}
-      <nav className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Asterivo
-          </Link>
-          <div className="flex space-x-8">
-            <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">AI Automation</Link>
-            <Link href="/services" className="text-slate-600 hover:text-blue-600 transition-colors">Services</Link>
-            <Link href="/pricing" className="text-blue-600 font-semibold">Pricing</Link>
-            <Link href="/case-studies" className="text-slate-600 hover:text-blue-600 transition-colors">Case Studies</Link>
-            <Link href="/#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors">How It Works</Link>
-            <Link href="/about" className="text-slate-600 hover:text-blue-600 transition-colors">About</Link>
-            <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">Contact</Link>
-          </div>
-        </div>
-      </nav>
+      <Navigation currentPath="/pricing" />
 
       <main>
         {/* Hero Section */}

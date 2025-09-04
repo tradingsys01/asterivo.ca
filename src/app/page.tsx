@@ -1,5 +1,6 @@
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
+import Navigation from "@/components/Navigation";
 
 export default function Home() {
   return (
@@ -16,22 +17,7 @@ export default function Home() {
         />
       </div>
       {/* Navigation */}
-      <nav className="container mx-auto px-6 py-4 relative z-20">
-        <div className="flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Asterivo
-          </div>
-          <div className="flex space-x-8">
-            <Link href="/solutions" className="text-slate-600 hover:text-blue-600 transition-colors">AI Automation</Link>
-            <Link href="/services" className="text-slate-600 hover:text-blue-600 transition-colors">Services</Link>
-            <Link href="/pricing" className="text-slate-600 hover:text-blue-600 transition-colors">Pricing</Link>
-            <Link href="/case-studies" className="text-slate-600 hover:text-blue-600 transition-colors">Case Studies</Link>
-            <a href="#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors">How It Works</a>
-            <Link href="/about" className="text-slate-600 hover:text-blue-600 transition-colors">About</Link>
-            <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">Free Assessment</Link>
-          </div>
-        </div>
-      </nav>
+      <Navigation currentPath="/" />
 
       <main className="relative z-10">
         {/* Hero Section */}
