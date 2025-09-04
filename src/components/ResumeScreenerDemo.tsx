@@ -57,10 +57,10 @@ export default function ResumeScreenerDemo() {
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Validate file type
-      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+      // Validate file type - Claude vision API supports images only for now
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
       if (!allowedTypes.includes(file.type)) {
-        alert('Please select a PDF, JPG, or PNG file');
+        alert('Currently only image formats (JPG, PNG) are supported. Please upload a screenshot or image of your resume.');
         return;
       }
       
@@ -247,14 +247,14 @@ export default function ResumeScreenerDemo() {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Upload Resume * (PDF, JPG, PNG)
+                  Upload Resume * (JPG, PNG only)
                 </label>
                 <div className="relative">
                   <input
                     ref={fileInputRef}
                     type="file"
                     onChange={handleFileSelect}
-                    accept=".pdf,.jpg,.jpeg,.png"
+                    accept=".jpg,.jpeg,.png"
                     className="hidden"
                   />
                   <button
@@ -276,7 +276,7 @@ export default function ResumeScreenerDemo() {
                   </button>
                 </div>
                 <p className="text-xs text-slate-500 mt-1">
-                  Max file size: 10MB. Supported formats: PDF, JPG, PNG
+                  Max file size: 10MB. Currently supports: JPG, PNG images only. For PDFs, please take a screenshot or convert to image format.
                 </p>
               </div>
 

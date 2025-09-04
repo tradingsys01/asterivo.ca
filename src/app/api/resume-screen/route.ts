@@ -62,11 +62,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate file type - support common resume formats
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+    // Validate file type - Claude vision API supports images only for now
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
     if (!allowedTypes.includes(resumeFile.type)) {
       return NextResponse.json(
-        { error: 'Invalid file type. Please upload PDF, JPG, or PNG files only.' },
+        { error: 'Currently only image formats (JPG, PNG) are supported. Please upload a screenshot or image of your resume, or convert PDF to image format.' },
         { status: 400 }
       );
     }
