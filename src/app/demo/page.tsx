@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import DemoWrapper from "@/components/DemoWrapper";
 import SocialMediaWrapper from "@/components/SocialMediaWrapper";
+import ResumeScreenerWrapper from "@/components/ResumeScreenerWrapper";
 
 // Force this page to be dynamic (not statically generated)
 export const dynamic = 'force-dynamic';
@@ -74,9 +75,8 @@ export default function DemoPage() {
               className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
                 activeTab === 'resume' 
                   ? 'bg-blue-600 text-white' 
-                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 opacity-50 cursor-not-allowed'
+                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600'
               }`}
-              disabled
             >
               Resume Screener
             </button>
@@ -84,13 +84,14 @@ export default function DemoPage() {
           <p className="text-center text-sm text-slate-500 dark:text-slate-400">
             {activeTab === 'invoice' && 'Extract data from invoices, receipts, and bills using AI'}
             {activeTab === 'social' && 'Generate engaging social media content for multiple platforms'}
-            {activeTab === 'resume' && 'Resume screening demo coming soon!'}
+            {activeTab === 'resume' && 'Screen resumes and get AI-powered candidate assessments'}
           </p>
         </div>
 
         {/* Dynamic Demo Content */}
         {activeTab === 'invoice' && <DemoWrapper />}
         {activeTab === 'social' && <SocialMediaWrapper />}
+        {activeTab === 'resume' && <ResumeScreenerWrapper />}
 
         {/* How It Works - Dynamic based on active tab */}
         {activeTab === 'invoice' && (
@@ -201,6 +202,60 @@ export default function DemoPage() {
           </section>
         )}
 
+        {activeTab === 'resume' && (
+          <section className="mt-16 bg-slate-100 dark:bg-slate-800 py-12 -mx-6 px-6">
+            <div className="container mx-auto">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8">
+                How AI Resume Screening Works in Your Business
+              </h2>
+              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Job Requirements Setup</h3>
+                  <p className="text-slate-600 dark:text-slate-300">Define position requirements, skills, experience, and company culture preferences</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">AI Analysis</h3>
+                  <p className="text-slate-600 dark:text-slate-300">Advanced AI screens resumes, scores candidates, and identifies skills gaps automatically</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Smart Recommendations</h3>
+                  <p className="text-slate-600 dark:text-slate-300">Get ranked candidates with interview questions and hiring recommendations</p>
+                </div>
+              </div>
+
+              <div className="text-center mt-12">
+                <div className="bg-white dark:bg-slate-700 p-6 rounded-lg max-w-2xl mx-auto">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                    Real Client Result: Tech Startup
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-300 mb-4">
+                    &ldquo;We reduced initial screening time from 4 hours to 20 minutes per role, with 85% more accurate candidate matching.&rdquo;
+                  </p>
+                  <div className="flex justify-center space-x-8 text-sm">
+                    <div>
+                      <div className="text-2xl font-bold text-green-600">95%</div>
+                      <div className="text-slate-500">Time Saved</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-green-600">85%</div>
+                      <div className="text-slate-500">Better Matches</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-green-600">$197</div>
+                      <div className="text-slate-500">Monthly Cost</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* CTA Section - Dynamic based on active tab */}
         <section className="text-center py-16">
           {activeTab === 'invoice' && (
@@ -236,6 +291,25 @@ export default function DemoPage() {
                 </Link>
                 <Link href="/solutions#sales-customer" className="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 rounded-lg font-semibold transition-colors">
                   View Social Media Case Studies
+                </Link>
+              </div>
+            </>
+          )}
+          
+          {activeTab === 'resume' && (
+            <>
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                Ready to Automate Your Hiring Process?
+              </h2>
+              <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
+                Get AI-powered resume screening and candidate ranking set up in just 2 days
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/#assessment" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
+                  Get Free HR Assessment
+                </Link>
+                <Link href="/solutions#hr-recruiting" className="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 rounded-lg font-semibold transition-colors">
+                  View HR Automation Case Studies
                 </Link>
               </div>
             </>
