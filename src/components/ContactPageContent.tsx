@@ -205,6 +205,14 @@ export default function ContactPageContent() {
       subtitle: "Get a custom recommendation for the perfect plan based on your needs",
       buttonText: "Book Free Consultation"
     };
+  } else if (source === 'jobs') {
+    formProps = {
+      ...formProps,
+      title: "Apply to Join Our Team",
+      subtitle: "Tell us about yourself and paste your resume below",
+      buttonText: "Submit Application",
+      showResumeField: true
+    };
   }
 
   return <LeadForm {...formProps} />;

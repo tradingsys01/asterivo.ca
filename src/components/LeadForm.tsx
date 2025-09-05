@@ -7,13 +7,15 @@ interface LeadFormProps {
   title?: string;
   subtitle?: string;
   buttonText?: string;
+  showResumeField?: boolean;
 }
 
 export default function LeadForm({ 
   source = 'unknown',
   title = "Get Your Free AI Assessment",
   subtitle = "See how much time you could save with AI automation",
-  buttonText = "Get My Free Assessment"
+  buttonText = "Get My Free Assessment",
+  showResumeField = false
 }: LeadFormProps) {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -22,6 +24,7 @@ export default function LeadForm({
     company: '',
     phone: '',
     message: '',
+    resume: '',
     source: source
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -104,6 +107,21 @@ export default function LeadForm({
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-4">
               Need help implementing these strategies? We'll also send you a personalized implementation roadmap within 24 hours.
             </p>
+          </>
+        ) : source === 'jobs' ? (
+          <>
+            <p className="text-lg text-slate-600 dark:text-slate-300 mb-6">
+              Thank you for your application! We've received your information and will review it carefully.
+            </p>
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-2">What happens next?</h3>
+              <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-1 text-left">
+                <li>• We'll review your application within 2-3 business days</li>
+                <li>• If you're a good fit, we'll schedule a phone screening</li>
+                <li>• Qualified candidates will move to our skills interview</li>
+                <li>• Final candidates will meet the team</li>
+              </ul>
+            </div>
           </>
         ) : (
           <>
@@ -218,20 +236,55 @@ export default function LeadForm({
             />
           </div>
 
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-              Tell us about your needs (Optional)
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={4}
-              value={formData.message}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white resize-vertical"
-              placeholder="Describe your current challenges, goals, or specific questions about AI automation..."
-            />
-          </div>
+          {showResumeField ? (
+            <div>
+              <label htmlFor="resume" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Resume/CV (Please paste your resume text below) *
+              </label>
+              <textarea
+                id="resume"
+                name="resume"
+                rows={8}
+                required
+                value={formData.resume}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white resize-vertical"
+                placeholder="Please paste your resume text here..."
+              />
+            </div>
+          ) : (
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Tell us about your needs (Optional)
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white resize-vertical"
+                placeholder="Describe your current challenges, goals, or specific questions about AI automation..."
+              />
+            </div>
+          )}
+
+          {showResumeField && (
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Cover Letter / Additional Information (Optional)
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white resize-vertical"
+                placeholder="Tell us why you're interested in this position and any additional information..."
+              />
+            </div>
+          )}
 
           <button
             type="submit"
