@@ -91,3 +91,5 @@
   ✅ Fixed: Updated nginx static file paths✅ Images working: All images now serve correctly✅ Configuration reloaded: Nginx updated without downtime
 
   The images should now display properly on https://asterivo.ca. The nginx configuration now correctly points to the actual file locations where we deployed the code.
+- to deploy remote server always use deplyment script
+- on remote server always run nodejs on port 3000
