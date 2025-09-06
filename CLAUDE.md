@@ -1,27 +1,13 @@
 - remote deployment server is 167.86.77.166
 - keep this setup and use for later deployments for remote server
 - use this conf for remore server : explain remote artchitecture , nodejs etc ports ...
-
-● Let me explain the current remote server architecture and how everything is connected:
-
-● Bash(ssh root@167.86.77.166 "netstat -tlnp | grep :80 && netstat -tlnp | grep :443 && netstat -tlnp | grep :3001")
-  ⎿  tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      22940/nginx: master
-     tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      22940/nginx: master
-     tcp6       0      0 :::3001                 :::*                    LISTEN      46478/next-server (
-
-● Bash(ssh root@167.86.77.166 "cat /etc/nginx/sites-available/asterivo.ca")
-  ⎿  # HTTP to HTTPS redirect for domain
-     server {
-         listen 80;
-     … +105 lines (ctrl+r to expand)
-
-● Remote Server Architecture
+- Remote Server Architecture
 
   Current Setup (Development-like)
 
   Internet → Nginx (Reverse Proxy) → Node.js/Next.js Dev Server
      ↓            ↓                        ↓
-  Ports:       80/443                   3001
+  Ports:       80/443                   3000
 
   Port Configuration
 
@@ -33,63 +19,75 @@
     - Nginx with SSL certificates
     - Main public access point
     - Handles asterivo.ca and www.asterivo.ca
-  3. Port 3001 (Internal)
+  3. Port 3000 (Internal)
     - Next.js development server
     - Only accessible internally
     - Running npm run dev with hot reload
+## Deployment Instructions
 
-  Request Flow
+### Clean Deployment Process
+1. **Local Build**: Always run `npm run build` first to ensure production-ready code
+2. **Create Clean Archive**: 
+   ```bash
+   tar --exclude='node_modules' \
+       --exclude='.git' \
+       --exclude='.next/cache' \
+       --exclude='deploy*.sh' \
+       --exclude='.env.local' \
+       --exclude='test-*.js' \
+       --exclude='*.tar.gz' \
+       --exclude='*.log' \
+       -czf clean-deployment.tar.gz .
+   ```
+3. **Upload**: `scp clean-deployment.tar.gz root@167.86.77.166:/tmp/`
+4. **Deploy**: Extract to `/var/www/asterivo.ca/` (single clean directory)
+5. **Copy Environment Variables**: **CRITICAL - Copy .env.local to production**
+   ```bash
+   # Copy local environment to remote server
+   scp .env.local root@167.86.77.166:/var/www/asterivo.ca/
+   ```
 
-  1. User visits https://asterivo.ca/demo
-  2. Nginx receives request on port 443
-  3. SSL termination happens at Nginx
-  4. Nginx proxies to http://localhost:3001
-  5. Next.js dev server processes request
-  6. Response flows back through Nginx to user
+### Remote Server Management
+- **Directory Structure**: Keep ONLY `/var/www/asterivo.ca/` - no scattered files
+- **Process Management**: Run only ONE Next.js process: `npm run dev`
+- **Port**: Always use port 3000 (as specified in architecture)
+- **Clean Restart**: 
+  ```bash
+  pkill -f "next" && sleep 3
+  cd /var/www/asterivo.ca
+  PORT=3000 npm run dev > server.log 2>&1 &
+  ```
 
-  Current Node.js Process
+### Deployment Checklist
+- ✅ Clean `/var/www/` directory (remove scattered files)
+- ✅ Single deployment in `/var/www/asterivo.ca/`
+- ✅ One Next.js process on port 3000
+- ✅ Test: https://asterivo.ca responds HTTP 200
+- ✅ Nginx proxy: 80/443 → 3000
 
-  - Process: next-server (PID 46478)
-  - Mode: Development (npm run dev)
-  - Port: 3001 (auto-selected because 3000 was occupied)
-  - Environment: .env.local loaded
-  - Features: Hot reload, dev tools, source maps
+### Important Notes
+- **Never** leave messy files scattered in `/var/www/`
+- **Always** kill all processes before redeployment
+- **Always** verify single process is running after deployment
+- **Use** `npm run dev` (not production mode) for hot reload capability
+- **CRITICAL**: Always copy `.env.local` with real credentials to production
+- **Email**: Requires Gmail App Password in EMAIL_PASSWORD
+- **API Keys**: Requires real ANTHROPIC_API_KEY for AI features
 
-  Why This Works Better
+### Environment Variables Required
+```bash
+NODE_ENV=development
+PORT=3000
+EMAIL_USER=asterivo.ca@gmail.com
+EMAIL_PASSWORD=your_gmail_app_password_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
+NEXT_PUBLIC_CONTACT_API=enabled
+```
 
-  - Clean: No messy PM2 or production build issues
-  - Debug-friendly: Full dev tools and error reporting
-  - Hot reload: Changes sync automatically
-  - Identical to localhost: Same npm run dev command
-
-  This mirrors your local development exactly - both run npm run dev on similar ports with the same codebase!
-
-> ok, all images messed in remote server
-
-● Let me check what's happening with the images on the remote server:
-
-● Bash(ssh root@167.86.77.166 "ls -la /var/www/asterivo.ca/public/images/")
-  ⎿  total 488                                    
-     drwxrwxr-x 2 1000 1000   4096 Aug 21 06:33 .
-     drwxrwxr-x 4 1000 1000   4096 Aug 21 06:32 ..
-     … +7 lines (ctrl+r to expand)
-
-● The images are there. The issue is likely the nginx configuration - it's looking for images in the wrong path. Let me check and fix it:
-
-● Bash(ssh root@167.86.77.166 "sed -i 's|/var/www/asterivo.ca/current/|/var/www/asterivo.ca/|g' /etc/nginx/sites-available/asterivo.ca && nginx -t && systemctl reload…)
-  ⎿  nginx: the configuration file /etc/nginx/nginx.conf syntax is ok  
-     nginx: configuration file /etc/nginx/nginx.conf test is successful
-
-● Now let me test if an image loads correctly:
-
-● Bash(curl -s -o /dev/null -w "%{http_code}" https://asterivo.ca/images/hero-team.jpg)
-  ⎿  200
-
-● Great! The images are now loading correctly. The issue was that nginx was still pointing to the old /var/www/asterivo.ca/current/ path instead of the new /var/www/asterivo.ca/
-  path.
-
-  ✅ Fixed: Updated nginx static file paths✅ Images working: All images now serve correctly✅ Configuration reloaded: Nginx updated without downtime
-
-  The images should now display properly on https://asterivo.ca. The nginx configuration now correctly points to the actual file locations where we deployed the code.
-- to deploy remote server always use deplyment script
-- on remote server always run nodejs on port 3000
+### Deployment Verification
+After deployment, verify:
+- ✅ Site responds: https://asterivo.ca (HTTP 200)
+- ✅ API works: Test contact form submission
+- ✅ Email sends: Check server logs for "Email notification sent successfully"
+- ✅ Single process: Only one next-server on port 3000
+- copy env vars to prod when deploy
